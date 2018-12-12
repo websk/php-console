@@ -1,6 +1,6 @@
 <?php
 
-namespace Console;
+namespace WebSK\Console;
 
 use GetOpt\Arguments;
 use GetOpt\Command;
