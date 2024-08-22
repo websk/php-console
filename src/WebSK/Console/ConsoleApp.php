@@ -14,8 +14,7 @@ use WebSK\Utils\Assert;
  */
 class ConsoleApp extends App
 {
-    /** @var GetOpt */
-    protected $get_opt;
+    protected GetOpt $get_opt;
 
     /**
      * ConsoleApp constructor.
