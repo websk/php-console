@@ -5,7 +5,10 @@ namespace WebSK\Console;
 use GetOpt\Arguments;
 use GetOpt\Command;
 use GetOpt\GetOpt;
+use Psr\Container\ContainerInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Slim\App;
+use Slim\Psr7\Factory\ResponseFactory;
 
 /**
  * Class ConsoleApp
@@ -17,9 +20,9 @@ class ConsoleApp extends App
 
     /**
      * ConsoleApp constructor.
-     * @param array $config
+     * @param ContainerInterface $container
      */
-    public function __construct(array $config = [])
+    public function __construct(ContainerInterface $container)
     {
         if (PHP_SAPI !== 'cli') {
             throw new \Exception(
@@ -27,16 +30,16 @@ class ConsoleApp extends App
             );
         }
 
-        parent::__construct($config);
+        parent::__construct(new ResponseFactory(), $container);
 
         $this->get_opt = new GetOpt();
     }
 
     /**
-     * @param bool $silent
+     * @param ServerRequestInterface|null $request
      * @throws \Exception
      */
-    public function run($silent = false)
+    public function run(?ServerRequestInterface $request = null): void
     {
         throw new \Exception(
             'use execute()'
@@ -62,7 +65,7 @@ class ConsoleApp extends App
     /**
      * @param Command $command
      */
-    public function addCommand(Command $command)
+    public function addCommand(Command $command): void
     {
         $this->get_opt->addCommand($command);
     }
