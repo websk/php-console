@@ -1,14 +1,49 @@
 {
   "name": "websk/php-console",
+  "description": "CLI application integration for Slim Framework and GetOpt",
+  "keywords": [
+    "cli",
+    "console",
+    "getopt",
+    "slim"
+  ],
+  "homepage": "https://github.com/websk/php-console",
+  "license": "MIT",
+  "support": {
+    "issues": "https://github.com/websk/php-console/issues",
+    "source": "https://github.com/websk/php-console"
+  },
   "require": {
     "php": "^8.3",
     "ulrichsg/getopt-php": "^v4.0.4",
-    "slim/slim": "4.14.*",
-    "slim/psr7": "1.7.0"
+    "slim/slim": "^4.15",
+    "slim/psr7": "^1.8"
   },
   "autoload": {
     "psr-4": {
-      "": "src/"
+      "WebSK\\": "src/WebSK/"
     }
+  },
+  "require-dev": {
+    "phpstan/phpstan": "^2",
+    "phpunit/phpunit": "^12.5"
+  },
+  "scripts": {
+    "lint": "find src tests -name '*.php' -print0 | xargs -0 -n1 php -l",
+    "test": "phpunit",
+    "analyse": "phpstan analyse --no-progress",
+    "check": [
+      "@lint",
+      "@test",
+      "@analyse"
+    ]
+  },
+  "archive": {
+    "exclude": [
+      "/.ai",
+      "/.idea",
+      "/.phpunit.cache",
+      "/vendor"
+    ]
   }
 }

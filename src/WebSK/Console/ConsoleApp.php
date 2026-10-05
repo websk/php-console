@@ -9,11 +9,9 @@ use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Slim\App;
 use Slim\Psr7\Factory\ResponseFactory;
+use UnexpectedValueException;
 
-/**
- * Class ConsoleApp
- * @package VitrinaTV\Console
- */
+/** @extends App<ContainerInterface> */
 class ConsoleApp extends App
 {
     protected GetOpt $get_opt;
@@ -47,7 +45,7 @@ class ConsoleApp extends App
     }
 
     /**
-     * @param array|string|Arguments|null $arguments
+     * @param array<int, string>|string|Arguments|null $arguments
      */
     public function execute($arguments = null): void
     {
@@ -57,6 +55,10 @@ class ConsoleApp extends App
         if (!$command) {
             echo $this->get_opt->getHelpText();
             exit;
+        }
+
+        if (!$command instanceof Command || !is_callable($command->getHandler())) {
+            throw new UnexpectedValueException('Command handler must be callable');
         }
 
         call_user_func($command->getHandler(), $this->get_opt);

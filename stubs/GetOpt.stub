@@ -1,0 +1,11 @@
+<?php
+
+namespace GetOpt;
+
+/**
+ * @implements \ArrayAccess<array-key, mixed>
+ * @implements \IteratorAggregate<array-key, mixed>
+ */
+class GetOpt implements \ArrayAccess, \IteratorAggregate
+{
+}
